@@ -1,0 +1,22 @@
+{
+  "totalIncome": 15000,
+  "totalExpenses": 8000,
+  "netBalance": -3000,
+  "transactionCount": 6,
+  "categoryBreakdown": [
+    { "category": "Food", "total": 2000, "percentage": 25 },
+    { "category": "Utilities", "total": 1500, "percentage": 18.75 },
+    { "category": "Transport", "total": 800, "percentage": 10 },
+    { "category": "Dining", "total": 1200, "percentage": 15 },
+    { "category": "Shopping", "total": 2500, "percentage": 31.25 }
+  ],
+  "monthlySpending": [
+    { "month": "Jan", "amount": 1200 },
+    { "month": "Feb", "amount": 1400 },
+    { "month": "Mar", "amount": 1100 },
+    { "month": "Apr", "amount": 1600 },
+    { "month": "May", "amount": 1300 },
+    { "month": "Jun", "amount": 1500 }
+  ]
+}
+

@@ -1,0 +1,8 @@
+[
+  { "id": 1, "date": "2025-02-11", "description": "Salary", "category": "Income", "amount": 15000, "type": "credit" },
+  { "id": 2, "date": "2025-02-10", "description": "Groceries", "category": "Food", "amount": 2000, "type": "debit" },
+  { "id": 3, "date": "2025-02-09", "description": "Electricity Bill", "category": "Utilities", "amount": 1500, "type": "debit" },
+  { "id": 4, "date": "2025-02-08", "description": "Metro Pass", "category": "Transport", "amount": 800, "type": "debit" },
+  { "id": 5, "date": "2025-02-07", "description": "Dinner at Restaurant", "category": "Dining", "amount": 1200, "type": "debit" },
+  { "id": 6, "date": "2025-02-06", "description": "Online Shopping", "category": "Shopping", "amount": 2500, "type": "debit" }
+]
