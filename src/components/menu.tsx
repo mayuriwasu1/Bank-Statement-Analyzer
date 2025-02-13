@@ -10,9 +10,9 @@ import {
   Bars3Icon,
   XMarkIcon,
   HomeIcon,
-  UsersIcon,
   FolderIcon,
   InformationCircleIcon,
+  ChartBarIcon,
 } from "@heroicons/react/24/outline";
 
 interface NavigationItem {
@@ -24,7 +24,7 @@ interface NavigationItem {
 const navigation: NavigationItem[] = [
   { name: "Dashboard", href: "/", icon: HomeIcon },
   { name: "CSV Upload", href: "/fileUpload", icon: FolderIcon },
-  { name: "Analytics", href: "/", icon: UsersIcon },
+  { name: "Analytics", href: "/", icon: ChartBarIcon },
   { name: "Help", href: "/help", icon: InformationCircleIcon },
 ];
 

@@ -85,7 +85,7 @@ export function FileUpload({
         </p>
       </div>
     </div>
-    <div className="mt-6 p-6 bg-white dark:bg-gray-900 border rounded-lg flex items-center justify-between w-full">
+    <div className="mt-6 p-6 bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-lg flex items-center justify-between w-full">
         <div>
           <p className="font-medium text-gray-800 dark:text-gray-200">
             Need Help with the tool?
