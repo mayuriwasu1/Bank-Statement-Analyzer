@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { BarChart3, PieChart, List, Loader2, AlertCircle } from "lucide-react";
 import { TransactionList } from "./components/TransactionList";
 import { SpendingChart } from "./components/SpendingChart";
 import { CategoryBreakdown } from "./components/CategoryBreakdown";
 import { FileUpload } from "./components/FileUpload";
 import { SummaryMetrics } from "./components/SummaryMetrics";
-import Loader from "./components/Loader";
 import ThemeToggle from "./components/ThemeToggle";
+import SidebarMenu from "./components/menu";
+import Analytics from "./components/Analytics";
+import InfoItem from "./components/Help";
 
 interface Transaction {
   id: number;
@@ -37,7 +40,7 @@ export interface FinancialSummary {
 }
 
 export const fetchTransactions = async (): Promise<Transaction[]> => {
-  const response = await fetch("data/transactions.json");
+  const response = await fetch("/data/transactions.json");
   if (!response.ok) throw new Error("Failed to fetch transactions");
   return response.json();
 };
@@ -49,9 +52,7 @@ export const fetchSummary = async (): Promise<FinancialSummary> => {
 };
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"transactions" | "spending" | "categories">(
-    "transactions"
-  );
+  const [activeTab, setActiveTab] = useState<"transactions" | "spending" | "categories">("transactions");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -117,52 +118,64 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-200 transition-all">
-      <header className="bg-white dark:bg-gray-800 shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            📉📈 Bank Statement Analyzer
-          </h1>
-          <ThemeToggle />
-        </div>
-      </header>
+    <Router>
+      <div className="flex">
+        {/* Sidebar */}
+        <SidebarMenu />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <FileUpload onUploadSuccess={handleUploadSuccess} onUploadError={handleUploadError} />
-        </div>
+        {/* Main Content */}
+        <div className="min-h-screen w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-200 transition-all">
+          {/* Header */}
+          <header className="bg-white dark:bg-gray-800 shadow">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-6 flex justify-between items-center">
+              <h1 className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
+                📉📈 Bank Statement Analyzer
+              </h1>
+              <ThemeToggle />
+            </div>
+          </header>
 
-        {summary && (
-          <div className="mb-8">
-            <SummaryMetrics summary={summary} />
-          </div>
-        )}
+          {/* Main Section */}
+          <main className="px-4 sm:px-6 lg:px-8 py-8">
+            <Routes>
+              {/* File Upload Route */}
+              <Route
+                path="/fileUpload"
+                element={
+                  <div className="mb-8">
+                    <FileUpload
+                      onUploadSuccess={handleUploadSuccess}
+                      onUploadError={handleUploadError}
+                    />
+                  </div>
+                }
+              />
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow transition-all">
-          <div className="border-b border-gray-200 dark:border-gray-700">
-            <nav className="flex -mb-px">
-              {["transactions", "spending", "categories"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab as "transactions" | "spending" | "categories")}
-                  className={`${
-                    activeTab === tab
-                      ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                      : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
-                  } flex items-center px-2 sm:px-6 py-4 border-b-2 font-medium text-sm`}
-                >
-                  {tab === "transactions" && <List className="w-5 h-5 mr-2" />}
-                  {tab === "spending" && <BarChart3 className="w-5 h-5 mr-2" />}
-                  {tab === "categories" && <PieChart className="w-5 h-5 mr-2" />}
-                  <span className="capitalize hidden sm:block">{tab}</span>
-                </button>
-              ))}
-            </nav>
-          </div>
-          <div className="p-6">{renderContent()}</div>
+              {/* Home Route */}
+              <Route
+                path="/"
+                element={
+                  <>
+                    {summary ? <SummaryMetrics summary={summary} /> : <p>No summary available</p>}
+                    <Analytics activeTab={activeTab} setActiveTab={setActiveTab} renderContent={renderContent} />
+                  </>
+                }
+              />
+
+              {/* Info Route */}
+              <Route
+                path="/help"
+                element={
+                  <>
+                    <InfoItem />
+                  </>
+                }
+              />
+            </Routes>
+          </main>
         </div>
-      </main>
-    </div>
+      </div>
+    </Router>
   );
 };
 

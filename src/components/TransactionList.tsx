@@ -6,7 +6,9 @@ interface TransactionListProps {
   transactions: any[];
 }
 
-export const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {
+export const TransactionList: React.FC<TransactionListProps> = ({
+  transactions,
+}) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -28,7 +30,10 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions }
         </thead>
         <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
           {transactions.map((transaction) => (
-            <tr key={transaction.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+            <tr
+              key={transaction.id}
+              className="hover:bg-gray-50 dark:hover:bg-gray-800"
+            >
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                 {format(new Date(transaction.date), "MMM d, yyyy")}
               </td>
@@ -54,7 +59,10 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions }
                         : "text-red-600 dark:text-red-400"
                     }
                   >
-                    ₹{Math.abs(transaction.amount).toLocaleString("en-IN", { maximumFractionDigits: 2 })}
+                    ₹
+                    {Math.abs(transaction.amount).toLocaleString("en-IN", {
+                      maximumFractionDigits: 2,
+                    })}
                   </span>
                 </div>
               </td>
